@@ -4,7 +4,8 @@ import { VideoLinks } from 'kodikwrapper';
 import { createErrorAnswer } from './helpers';
 import { BadRequestError, NotFoundError } from './errors';
 import { parseLink} from './get-dubs'; // Import the parseLinks function
-
+import axios from 'axios';
+import cheerio from 'cheerio';
 
 const app = new App();
 const PORT = +(process.env.PORT ?? 3000);
@@ -47,15 +48,35 @@ app.get('/video-links', async (req, res) => {
 });
 
 app.get('/all-dubs', async (req, res) => {
-  const { link, extended } = req.query;
+  const  link  = req.query.link?.toString()?.split('?')[0];
   if (!link) return res.status(400).json(createErrorAnswer(new BadRequestError('"link" not passed')));
   try {
-
-    const result = link.includes("video")?
-      await parseLink(link as string):
-      await parseLink(link as string, true); // Use the parseLinks function
-
+    const result = await dubs(link as string)
     res.status(200).json({
+      ok: true,
+      data: result
+    });
+  } catch (error) {
+    res.status(400).json(createErrorAnswer(error));
+  }
+});
+async function dubs(link:string) {
+  const result = link.includes("season")?
+  await parseLink(link as string, true):
+  await parseLink(link as string); // Use the parseLinks function
+  return result
+}
+// grab kodik link from yummyanime
+app.get('/get-yummy', async (req, res) => {
+  const  link  = req.query.link?.toString()?.split('?')[0];
+  if (!link) return res.status(400).json(createErrorAnswer(new BadRequestError('"link" not passed')));
+  try {
+    const response = await axios.get(link as string);
+    const animeData = response.data;
+    const $ = cheerio.load(animeData);
+    const kodikLink = $('[data-href*="/season/"]').first().attr('data-href');
+    const result = await dubs("http:"+kodikLink?.split('?')[0])
+      res.status(200).json({
       ok: true,
       data: result
     });
