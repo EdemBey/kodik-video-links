@@ -173,6 +173,104 @@ extended | boolean | Дополнительные поля(распаршенн�
 ***
 
 
+## • all-dubs
+Получение ссылок на альтернативные озвучки/субтитры
+```js
+GET /all-dubs
+```
+
+
+### Примеры запросов
+```
+/all-dubs?link=http://kodik.biz/video/80472/2763ceff125af0118e3a1d498a5d91bb/720p
+```
+```
+/all-dubs?link=http://kodik.biz/season/64603/f3cbcdd745a3994c72502f62f4ef616f/720p
+```
+
+### Примеры ответа
+```json
+{
+  "ok": true,
+  "data": [
+    [
+      {
+        "title": "AniFame",
+        "translationType": "voice",
+        "videoLink": "http://kodik.biz/video/80472/2763ceff125af0118e3a1d498a5d91bb/720p"
+      },
+      {
+        "title": "AniFilm",
+        "translationType": "voice",
+        "videoLink": "http://kodik.biz/video/57216/db2d71f77ee321319c3a2ea73b567b3c/720p"
+      },
+      {
+        "title": "AniLibria.TV",
+        "translationType": "voice",
+        "videoLink": "http://kodik.biz/video/63224/14df471efcd7c11a251d2b8a2d2aff09/720p"
+      },
+      {
+        "title": "AniStar Многоголосый",
+        "translationType": "voice",
+        "videoLink": "http://kodik.biz/video/45156/57026f64e6aa3b62ee9c007549e5c8a2/720p"
+      },
+      {
+        "title": "Субтитры",
+        "translationType": "subtitles",
+        "videoLink": "http://kodik.biz/video/47682/baf86bf283c79c9913672866e9968653/720p"
+      }
+    ]
+  ]
+}
+```
+
+```json
+{
+  "ok": true,
+  "data": [
+    [
+      {
+        "title": "Ancord",
+        "translationType": "voice",
+        "episodesList": [
+          [
+            {
+              "title": "1 серия",
+              "videoLink": "http://kodik.biz/seria/283239/582f93970b237b069b1d78ce3e10ea32/720p"
+            },
+            {
+              "title": "2 серия",
+              "videoLink": "http://kodik.biz/seria/283240/c2f65dd640e88cce12e77de384a00d45/720p"
+            
+            }
+          ]
+        ]
+      },
+      {
+        "title": "GrandStudio",
+        "translationType": "voice",
+        "episodesList": [
+          [
+            {
+              "title": "1 серия",
+              "videoLink": "http://kodik.biz/seria/1158293/1f0a889a3f7ebc513b99c37c8d705d25/720p"
+            },
+            {
+              "title": "2 серия",
+              "videoLink": "http://kodik.biz/seria/1159198/1ba6a85c0aa897b6f1c3596fee14beea/720p"
+            },
+            {
+              "title": "3 серия",
+              "videoLink": "http://kodik.biz/seria/1165661/7df566b943a9870a2997031403a35ac2/720p"
+            }
+          ]
+        ]
+      }
+    ]
+  ]
+}
+```
+
 ## Credits
 
 [neverlane from thedvxchsquad](https://github.com/thedvxchsquad) 2022 - ?

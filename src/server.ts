@@ -3,6 +3,8 @@ import { printParser, printServer, printVideoLinks } from './logger';
 import { VideoLinks } from 'kodikwrapper';
 import { createErrorAnswer } from './helpers';
 import { BadRequestError, NotFoundError } from './errors';
+import { parseLink} from './get-dubs'; // Import the parseLinks function
+
 
 const app = new App();
 const PORT = +(process.env.PORT ?? 3000);
@@ -42,6 +44,24 @@ app.get('/video-links', async (req, res) => {
   } catch (error) {
     res.status(400).json(createErrorAnswer(error));
   };
+});
+
+app.get('/all-dubs', async (req, res) => {
+  const { link, extended } = req.query;
+  if (!link) return res.status(400).json(createErrorAnswer(new BadRequestError('"link" not passed')));
+  try {
+
+    const result = link.includes("video")?
+      await parseLink(link as string):
+      await parseLink(link as string, true); // Use the parseLinks function
+
+    res.status(200).json({
+      ok: true,
+      data: result
+    });
+  } catch (error) {
+    res.status(400).json(createErrorAnswer(error));
+  }
 });
 
 app.use(async (req, res) => {
