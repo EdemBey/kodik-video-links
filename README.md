@@ -3,7 +3,7 @@
 
 ## Установка
 ```bash
-git clone https://github.com/thedvxchsquad/kodik-video-links.git
+git clone https://github.com/EdemBey/kodik-video-links.git
 cd kodik-video-links
 pnpm install
 ```
